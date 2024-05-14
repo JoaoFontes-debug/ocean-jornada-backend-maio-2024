@@ -30,7 +30,36 @@ app.get('/item/:id', function(req, res){
   res.send(item)
 })
 
-//parametros de rotas exemplo "/:id"
+//sinalizando que todo corpo de requisiçao
+//virá como JSON
+app.use(express.json())
+
+//end point de create [post]/item
+app.post('/item', function(req,res){
+  //acessamos  o corpo da requisiçao
+  const body = req.body
+   
+  const novoItem = body.nome
+  //adicionar novo item na lista
+  itens.push(novoItem)
+  //enviar mensagem de sucesso
+  res.send('item adicionado '+ novoItem)
+})
+
+//endpoint update[PUT] /item/:id
+app.put('/item/:id', function (req, res){
+  
+  //acessar item a ser atualizado, a partir
+  const id = req.params.id
+  //do corpo da requisiçao
+  const body = req.body
+  const atualizarItem = body.nome
+//atualizar na lista o item recebido
+itens[id-1] = atualizarItem
+//enviamos uma mensagem de sucesso
+res.send('item atualizado com sucesso: ' + id+ ','+atualizarItem)
+
+})
 
 
 app.listen(3000)
