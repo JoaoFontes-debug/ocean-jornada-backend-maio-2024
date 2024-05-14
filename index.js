@@ -16,7 +16,7 @@ const itens =  ['rick sanchez', 'morty', 'sumer']
 //              0                 1         2
 //endpoint de read All [GET] /item
 app.get('/item', function (req,res) {
-  res.send (itens)
+  res.send (itens.filter(Boolean))
 }) 
 
 //endpoint read by id [GET] /item/:id
@@ -57,9 +57,22 @@ app.put('/item/:id', function (req, res){
 //atualizar na lista o item recebido
 itens[id-1] = atualizarItem
 //enviamos uma mensagem de sucesso
-res.send('item atualizado com sucesso: ' + id+ ','+atualizarItem)
+res.send('item atualizado com sucesso: ' + id+ ', '+atualizarItem)
 
 })
+
+//endpoint de delete [DELETE] /item/:id
+app.delete('/item/:id', function(req, res) {
+  //acessar parametro de rota id
+  const id =  req.params.id
+  //excuta a opreaçao de exclusao desse item 
+  //pelo item
+  delete itens[id-1]
+  
+  //enviamos uma mensagem de sucesso
+  res.send('item removido com sucesso: ' + id)
+})
+
 
 
 app.listen(3000)
